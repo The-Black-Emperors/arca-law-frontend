@@ -6,71 +6,72 @@ import { initDetalheProcessoPage } from './views/DetalheProcesso.js';
 import { initAgendaPage } from './views/Agenda.js';
 import { initBillingPage } from './views/Billing.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+const main = () => {
     try {
         checkAuth();
-
-        const contentArea = document.getElementById('content-area');
-        const userNameSpan = document.getElementById('user-name');
-        const logoutBtn = document.getElementById('logout-btn');
-        const router = new Navigo("/", { hash: false });
-
-        userNameSpan.textContent = getUserName();
-        logoutBtn.addEventListener('click', handleLogout);
-
-        const handleNavigoLink = (event) => {
-            const anchor = event.target.closest('a[data-navigo]');
-            if (anchor) {
-                event.preventDefault();
-                router.navigate(anchor.getAttribute('href'));
-            }
-        };
-
-        document.querySelector('.sidebar-nav').addEventListener('click', handleNavigoLink);
-        contentArea.addEventListener('click', handleNavigoLink);
-
-        router
-            .on('/', (match) => {
-                setActiveLink('/');
-                initDashboardPage(container);
-            })
-            .on('/processos', (match) => {
-                setActiveLink('/processos');
-                initProcessosPage(container, router);
-            })
-            .on('/contatos', (match) => {
-                setActiveLink('/contatos');
-                initContatosPage(container);
-            })
-            .on('/agenda', (match) => {
-                setActiveLink('/agenda');
-                initAgendaPage(container);
-            })
-            .on('/billing', (match) => {
-                setActiveLink('/billing');
-                initBillingPage(container);
-            })
-            .on('/processo/:id', ({ data }) => {
-                setActiveLink('/processos');
-                initDetalheProcessoPage(container, data.id);
-            })
-            .notFound(() => {
-                contentArea.innerHTML = '<h2>Página não encontrada</h2>';
-            })
-            .resolve();
-
-    } catch(e) {
+    } catch (e) {
         console.error(e.message);
+        return;
     }
-});
 
-function setActiveLink(path) {
-    document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (linkPath === path || (path.startsWith('/processo') && linkPath === '/processos')) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
+    const contentArea = document.getElementById('content-area');
+    const userNameSpan = document.getElementById('user-name');
+    const logoutBtn = document.getElementById('logout-btn');
+    const router = new Navigo("/", { hash: false });
+
+    userNameSpan.textContent = getUserName();
+    logoutBtn.addEventListener('click', handleLogout);
+
+    const handleNavigoLink = (event) => {
+        const anchor = event.target.closest('a[data-navigo]');
+        if (anchor) {
+            event.preventDefault();
+            router.navigate(anchor.getAttribute('href'));
         }
-    });
-}
+    };
+    
+    document.querySelector('.app-container').addEventListener('click', handleNavigoLink);
+    
+    const setActiveLink = (path) => {
+        document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+            link.classList.remove('active');
+            const linkPath = link.getAttribute('href');
+            if (linkPath === path || (path.startsWith('/processo') && linkPath === '/processos')) {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    router
+        .on('/', () => {
+            setActiveLink('/');
+            initDashboardPage(contentArea, router);
+        })
+        .on('/processos', () => {
+            setActiveLink('/processos');
+            initProcessosPage(contentArea, router);
+        })
+        .on('/contatos', () => {
+            setActiveLink('/contatos');
+            initContatosPage(contentArea);
+        })
+        .on('/agenda', () => {
+            setActiveLink('/agenda');
+            initAgendaPage(contentArea);
+        })
+        .on('/billing', () => {
+            setActiveLink('/billing');
+            initBillingPage(contentArea);
+        })
+        .on('/processo/:id', ({ data }) => {
+            setActiveLink('/processos');
+            initDetalheProcessoPage(contentArea, data.id, router);
+        })
+        .notFound(() => {
+            contentArea.innerHTML = '<h2>404 - Página não encontrada</h2>';
+            setActiveLink(null);
+        })
+        .resolve();
+};
+
+document.addEventListener('DOMContentLoaded', main);
