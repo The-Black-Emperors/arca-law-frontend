@@ -30,29 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
         contentArea.addEventListener('click', handleNavigoLink);
 
         router
-            .on('/', () => {
+            .on('/', (match) => {
                 setActiveLink('/');
-                initDashboardPage(contentArea, router);
+                initDashboardPage(container);
             })
-            .on('/processos', () => {
+            .on('/processos', (match) => {
                 setActiveLink('/processos');
-                initProcessosPage(contentArea, router);
+                initProcessosPage(container, router);
             })
-            .on('/contatos', () => {
+            .on('/contatos', (match) => {
                 setActiveLink('/contatos');
-                initContatosPage(contentArea);
+                initContatosPage(container);
             })
-            .on('/agenda', () => {
+            .on('/agenda', (match) => {
                 setActiveLink('/agenda');
-                initAgendaPage(contentArea);
+                initAgendaPage(container);
             })
-            .on('/billing', () => {
+            .on('/billing', (match) => {
                 setActiveLink('/billing');
-                initBillingPage(contentArea);
+                initBillingPage(container);
             })
             .on('/processo/:id', ({ data }) => {
                 setActiveLink('/processos');
-                initDetalheProcessoPage(contentArea, data.id, router);
+                initDetalheProcessoPage(container, data.id);
             })
             .notFound(() => {
                 contentArea.innerHTML = '<h2>Página não encontrada</h2>';
