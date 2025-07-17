@@ -29,49 +29,41 @@ const main = () => {
             router.navigate(anchor.getAttribute('href'));
         }
     };
-    
+
     document.querySelector('.app-container').addEventListener('click', handleNavigoLink);
     
     const setActiveLink = (path) => {
         document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
-            link.classList.remove('active');
             const linkPath = link.getAttribute('href');
-            if (linkPath === path || (path.startsWith('/processo') && linkPath === '/processos')) {
+            link.classList.remove('active');
+            if (linkPath === path) {
+                link.classList.add('active');
+            } else if (path.startsWith('/processo/') && linkPath === '/processos') {
                 link.classList.add('active');
             }
         });
     };
 
-    router
-        .on('/', () => {
-            setActiveLink('/');
-            initDashboardPage(contentArea, router);
-        })
-        .on('/processos', () => {
-            setActiveLink('/processos');
-            initProcessosPage(contentArea, router);
-        })
-        .on('/contatos', () => {
-            setActiveLink('/contatos');
-            initContatosPage(contentArea);
-        })
-        .on('/agenda', () => {
-            setActiveLink('/agenda');
-            initAgendaPage(contentArea);
-        })
-        .on('/billing', () => {
-            setActiveLink('/billing');
-            initBillingPage(contentArea);
-        })
-        .on('/processo/:id', ({ data }) => {
-            setActiveLink('/processos');
-            initDetalheProcessoPage(contentArea, data.id, router);
-        })
-        .notFound(() => {
-            contentArea.innerHTML = '<h2>404 - Página não encontrada</h2>';
-            setActiveLink(null);
-        })
-        .resolve();
+    const routes = {
+        '/': () => initDashboardPage(contentArea, router),
+        '/processos': () => initProcessosPage(contentArea, router),
+        '/contatos': () => initContatosPage(contentArea, router),
+        '/agenda': () => initAgendaPage(contentArea, router),
+        '/billing': () => initBillingPage(contentArea, router),
+        '/processo/:id': ({ data }) => initDetalheProcessoPage(contentArea, data.id, router),
+    };
+
+    router.on(routes).notFound(() => {
+        contentArea.innerHTML = '<h2>404 - Página não encontrada</h2>';
+        setActiveLink(null);
+    }).resolve();
+
+    router.hooks({
+        before: (done, match) => {
+            setActiveLink(match.route.path);
+            done();
+        }
+    });
 };
 
 document.addEventListener('DOMContentLoaded', main);

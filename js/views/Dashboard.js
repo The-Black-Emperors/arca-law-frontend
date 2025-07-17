@@ -23,14 +23,12 @@ export function initDashboardPage(container, router) {
     `;
     container.innerHTML = template;
 
-    const processosWidgetContent = container.querySelector('#processos-widget .widget-content');
-    const financeiroWidgetContent = container.querySelector('#financeiro-widget .widget-content');
-
-    loadProcessosWidget(processosWidgetContent);
-    loadFinanceiroWidget(financeiroWidgetContent);
+    loadProcessosWidget(container, router);
+    loadFinanceiroWidget(container);
 }
 
-async function loadProcessosWidget(widgetContent) {
+async function loadProcessosWidget(container, router) {
+    const widgetContent = container.querySelector('#processos-widget .widget-content');
     try {
         const processos = await api.get('/processos?limit=5');
         if (!processos || processos.length === 0) {
@@ -44,7 +42,7 @@ async function loadProcessosWidget(widgetContent) {
                     ${processos.map(p => `
                         <tr>
                             <td><a href="/processo/${p.id}" data-navigo>${p.numero}</a></td>
-                            <td style="text-align: right;">${p.status}</td>
+                            <td style="text-align: right; color: var(--text-secondary);">${p.status}</td>
                         </tr>
                     `).join('')}
                 </tbody>
@@ -56,7 +54,8 @@ async function loadProcessosWidget(widgetContent) {
     }
 }
 
-async function loadFinanceiroWidget(widgetContent) {
+async function loadFinanceiroWidget(container) {
+    const widgetContent = container.querySelector('#financeiro-widget .widget-content');
     try {
         const summary = await api.get('/financials/summary');
         const saldo = parseFloat(summary.total_receitas) - parseFloat(summary.total_despesas);
