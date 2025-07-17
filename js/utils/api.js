@@ -1,6 +1,6 @@
 import { handleLogout } from '../auth.js';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://arca-law-backend-the-black-emperors-projects.vercel.app/api';
 
 async function request(endpoint, options = {}) {
     const token = localStorage.getItem('arca-law-token');
