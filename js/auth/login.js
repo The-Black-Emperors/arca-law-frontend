@@ -1,3 +1,5 @@
+console.log("Arquivo login.js carregado e executado com SUCESSO!");
+
 const loginForm = document.getElementById('login-form');
 const debugBtn = document.getElementById('debug-login-btn');
 const errorMessageDiv = document.getElementById('error-message');
