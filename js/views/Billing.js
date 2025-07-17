@@ -1,13 +1,12 @@
-import { showToast } from '../utils/toast.js';
 import { api } from '../utils/api.js';
+import { showToast } from '../utils/toast.js';
 
 export function initBillingPage(container) {
     const monthlyPriceId = "price_1RfFVzQkT9sgchaq5pohgITn";
     const yearlyPriceId = "price_1RfFZuQkT9sgchaqoBuBLtci";
-    
-    const STRIPE_PUBLISHABLE_KEY = "pk_test_51RfFLLQkT9sgchaqrD365f47SrHRTY5CQcgDVqnGfFi0t2LXwQukNv1qlcYAImXO6BMI2stmHwqVoruCRZmhconD00I5vnGUop"; 
-    
-    if (!STRIPE_PUBLISHABLE_KEY || STRIPE_PUBLISHABLE_KEY.includes("SUBSTITUA")) {
+    const publishableKey = "pk_test_51RfFLLQkT9sgchaqrD365f47SrHRTY5CQcgDVqnGfFi0t2LXwQukNv1qlcYAImXO6BMI2stmHwqVoruCRZmhconD00I5vnGUop"; 
+
+    if (!publishableKey || publishableKey.includes("SUBSTITUA")) {
         container.innerHTML = `<p style="color:red; text-align: center; padding: 20px;">ERRO DE CONFIGURAÇÃO: A chave publicável do Stripe não foi definida no frontend.</p>`;
         return;
     }
@@ -32,7 +31,8 @@ export function initBillingPage(container) {
     `;
     container.innerHTML = template;
     
-    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+    const stripe = Stripe(publishableKey);
+    const token = localStorage.getItem('arca-law-token');
 
     container.querySelectorAll('.plan-card button').forEach(button => {
         button.addEventListener('click', async (event) => {
