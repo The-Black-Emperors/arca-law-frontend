@@ -93,3 +93,28 @@ li { list-style: none; }
 
 .modal-backdrop.active, .event-modal.active, .invoice-modal.active { opacity: 1; visibility: visible; }
 .invoice-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--card-bg); padding: 30px; border-radius: 8px; z-index: 1001; width: 90%; max-width: 400px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s; }
+
+.modal-backdrop.active, .event-modal.active, .invoice-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.invoice-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    z-index: 1001;
+    width: 90%;
+    max-width: 450px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+}
+
+.invoice-modal h3 {
+    margin-top: 0;
+}
