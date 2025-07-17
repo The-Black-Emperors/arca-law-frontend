@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Arca Law</title>
+    <link rel="stylesheet" href="/css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Crie sua Conta</h1>
+        <p>Comece a gerenciar seus processos de forma eficiente.</p>
+        <div id="error-message"></div>
+        <form class="auth-form" id="register-form">
+            <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn-primary">Registrar</button>
+        </form>
+        <div class="switch-link">
+            <span>Já tem uma conta? <a href="/auth/login.html">Faça Login</a></span>
+        </div>
+    </div>
+    <script src="/js/auth/register.js"></script>
+</body>
+</html>

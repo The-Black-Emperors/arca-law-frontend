@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arca Law</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Arca Law</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/" class="nav-link" data-navigo><i class="fa-solid fa-house fa-fw"></i> <span>Área de Trabalho</span></a></li>
+                    <li><a href="/processos" class="nav-link" data-navigo><i class="fa-solid fa-gavel fa-fw"></i> <span>Processos</span></a></li>
+                    <li><a href="/contatos" class="nav-link" data-navigo><i class="fa-solid fa-address-book fa-fw"></i> <span>Contatos</span></a></li>
+                    <li><a href="/agenda" class="nav-link" data-navigo><i class="fa-solid fa-calendar-days fa-fw"></i> <span>Agenda</span></a></li>
+                    <li><a href="/billing" class="nav-link" data-navigo><i class="fa-solid fa-credit-card fa-fw"></i> <span>Assinatura</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Pesquisar...">
+                </div>
+                <div class="user-actions">
+                    <div class="user-profile">
+                        <img src="https://i.pravatar.cc/40?u=user" alt="Avatar do Usuário">
+                        <span id="user-name">Usuário</span>
+                    </div>
+                    <button id="logout-btn" class="btn-logout">Sair</button>
+                </div>
+            </header>
+            <div id="content-area" class="content-area">
+                <div class="spinner-container"><div class="spinner"></div></div>
+            </div>
+        </main>
+    </div>
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div id="event-modal" class="event-modal"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/navigo@8.11.1/lib/navigo.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="module" src="/js/main.js"></script>
+</body>
+</html>
